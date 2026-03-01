@@ -17,8 +17,8 @@ struct ContentView: View {
    
    // Vibe tags
    @State private var availableTags: [String] = [
-       "Chill", "Hype", "Groovy", "Dark", "Melodic",
-       "Uplifting", "Sad", "Aggressive", "Funky", "Dreamy"
+       "Chill", "Hype", "Groovy", "Dark", "Ethereal",
+       "Uplifting", "Sad", "Aggressive", "Sexy", "Throwback"
    ]
    @State private var selectedTags: Set<String> = []
    @State private var customTagInput: String = ""
@@ -113,12 +113,16 @@ struct ContentView: View {
                Text("Reset")
                    .frame(maxWidth: .infinity)
            }
-           .keyboardShortcut("r", modifiers: [.command])
+           .keyboardShortcut(.delete, modifiers: [])
            .buttonStyle(.bordered)
            .controlSize(.regular)
            
-           Divider()
+           Text("Press **Space** to tap, **Return** to set BPM, **Delete** to reset")
+               .font(.caption2)
+               .foregroundStyle(.quaternary)
            
+           Divider()
+           DisclosureGroup("Apple Music", isExpanded: $vibeExpanded) {
            // Selected Track Info
            VStack(spacing: 4) {
                HStack {
@@ -209,13 +213,14 @@ struct ContentView: View {
                setBPMToSelectedSong()
            } label: {
                Label("Set BPM to selected song", systemImage: "music.note")
+                   .font(.body.weight(.semibold))
                    .frame(maxWidth: .infinity)
+                   .padding(.vertical, 4)
            }
            .keyboardShortcut(.return, modifiers: [])
            .buttonStyle(.borderedProminent)
            .controlSize(.regular)
            .disabled(roundedBPM == 0)
-           .tint(roundedBPM > 0 ? .accentColor : .gray)
            
            // BPM Status message
            if let statusMessage {
@@ -228,8 +233,7 @@ struct ContentView: View {
            
            Divider()
            
-           // Vibe Tags Section
-           DisclosureGroup("Vibe Tags", isExpanded: $vibeExpanded) {
+           
                VStack(alignment: .leading, spacing: 8) {
                    // Tag chips - wrapping layout
                    FlowLayout(spacing: 6) {
@@ -266,16 +270,18 @@ struct ContentView: View {
                            setVibeToSelectedSong()
                        } label: {
                            Label("Set vibe", systemImage: "waveform")
+                               .font(.body.weight(.semibold))
                                .frame(maxWidth: .infinity)
+                               .padding(.vertical, 4)
                        }
-                       .buttonStyle(.bordered)
+                       .buttonStyle(.borderedProminent)
                        .controlSize(.regular)
                        .disabled(selectedTags.isEmpty)
                        
                        Button {
                            resetVibe()
                        } label: {
-                           Label("Reset", systemImage: "arrow.counterclockwise")
+                           Image(systemName: "arrow.counterclockwise")
                        }
                        .buttonStyle(.bordered)
                        .controlSize(.regular)
@@ -295,9 +301,7 @@ struct ContentView: View {
            }
            .font(.headline)
            
-           Text("Press **Space** to tap · **Return** to set BPM")
-               .font(.caption2)
-               .foregroundStyle(.quaternary)
+          
        }
        .padding(20)
        .frame(width: 260)
