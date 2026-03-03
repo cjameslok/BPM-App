@@ -300,8 +300,6 @@ struct ContentView: View {
                .padding(.top, 4)
            }
            .font(.headline)
-           
-          
        }
        .padding(20)
        .frame(width: 260)
