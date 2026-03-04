@@ -41,11 +41,11 @@ final class BPMRangeStore: ObservableObject {
         } else {
             // Sensible defaults for fitness instructors
             ranges = [
-                BPMRange(name: "Warm-up",  min: 100, max: 115),
-                BPMRange(name: "Flat Road", min: 116, max: 128),
-                BPMRange(name: "Climb",    min: 60,  max: 80),
-                BPMRange(name: "Sprint",   min: 130, max: 160),
-                BPMRange(name: "Cooldown", min: 80,  max: 100),
+                BPMRange(name: "Recovery",  min: 70, max: 75),
+                BPMRange(name: "Slow jog", min: 80, max: 90),
+                BPMRange(name: "Fast jog",    min: 90,  max: 105),
+                BPMRange(name: "Sprint",   min: 120, max: 140),
+                BPMRange(name: "Climb", min: 60,  max: 68),
             ]
         }
     }
