@@ -7,6 +7,7 @@
 
 import Foundation
 import AppKit
+internal import Combine
 
 enum MusicServiceError: LocalizedError {
     case noTrackSelected
@@ -37,20 +38,19 @@ struct TrackInfo {
 
 struct MusicService {
 
-    /// Reads info from the currently selected Apple Music track.
+    /// Reads info from the currently playing Apple Music track.
     static func getSelectedTrackInfo() throws -> TrackInfo {
         let script = """
         tell application "Music"
-            if selection is not {} then
-                set sel to selection
-                set t to item 1 of sel
+            if player state is playing then
+                set t to current track
                 set trackName to name of t
                 set trackArtist to artist of t
                 set trackBPM to bpm of t
                 set trackGrouping to grouping of t
                 return trackName & "||" & trackArtist & "||" & (trackBPM as text) & "||" & trackGrouping
             else
-                error "No track selected"
+                error "Nothing is playing"
             end if
         end tell
         """
@@ -65,7 +65,7 @@ struct MusicService {
         )
     }
 
-    /// Sets the BPM on the selected Apple Music track and prepends it to the song title.
+    /// Sets the BPM on the currently playing Apple Music track and prepends it to the song title.
     /// - Parameter bpm: The BPM value to set.
     /// - Returns: A description string like "Set 120 BPM → Song Name"
     @discardableResult
@@ -75,12 +75,11 @@ struct MusicService {
         // 1. Get the current track name
         let getName = """
         tell application "Music"
-            if selection is not {} then
-                set sel to selection
-                set t to item 1 of sel
+            if player state is playing then
+                set t to current track
                 return name of t
             else
-                error "No track selected"
+                error "Nothing is playing"
             end if
         end tell
         """
@@ -90,13 +89,12 @@ struct MusicService {
         let stripped = stripExistingBPMPrefix(from: currentName)
         let newName = "\(bpm) - \(stripped)"
 
-        // 3. Set BPM and name on the selected track
+        // 3. Set BPM and name on the currently playing track
         let escapedName = newName.replacingOccurrences(of: "\\", with: "\\\\")
                                  .replacingOccurrences(of: "\"", with: "\\\"")
         let setScript = """
         tell application "Music"
-            set sel to selection
-            set t to item 1 of sel
+            set t to current track
             set bpm of t to \(bpm)
             set name of t to "\(escapedName)"
         end tell
@@ -106,7 +104,7 @@ struct MusicService {
         return "Set \(bpm) BPM → \(newName)"
     }
 
-    /// Sets the grouping field on the selected Apple Music track to comma-separated vibe tags.
+    /// Sets the grouping field on the currently playing Apple Music track to comma-separated vibe tags.
     /// - Parameter tags: The vibe tags to write.
     /// - Returns: A description string like "Set vibes → Chill, Groovy"
     @discardableResult
@@ -119,13 +117,12 @@ struct MusicService {
 
         let script = """
         tell application "Music"
-            if selection is not {} then
-                set sel to selection
-                set t to item 1 of sel
+            if player state is playing then
+                set t to current track
                 set grouping of t to "\(escapedVibe)"
                 return name of t
             else
-                error "No track selected"
+                error "Nothing is playing"
             end if
         end tell
         """
@@ -134,16 +131,12 @@ struct MusicService {
         return "Set vibes on \(trackName)"
     }
 
-    /// Plays the currently selected track in Apple Music.
+    /// Plays the currently playing track in Apple Music (or resumes if paused).
     static func playSelectedTrack() throws {
         let script = """
         tell application "Music"
-            if selection is not {} then
-                set sel to selection
-                set t to item 1 of sel
-                play t
-            else
-                error "No track selected"
+            if player state is not playing then
+                play
             end if
         end tell
         """
@@ -191,5 +184,54 @@ struct MusicService {
             return String(name[range.upperBound...])
         }
         return name
+    }
+}
+
+// MARK: - Song Change Detection
+
+extension Notification.Name {
+    /// Posted when the currently playing track changes in Apple Music.
+    static let musicTrackDidChange = Notification.Name("musicTrackDidChange")
+}
+
+/// Monitors Apple Music for track changes and posts notifications.
+final class MusicTrackMonitor: NSObject, ObservableObject {
+    static let shared = MusicTrackMonitor()
+
+    @Published var currentTrack: TrackInfo?
+    
+    private var timer: Timer?
+    private var lastTrackName: String = ""
+
+    private override init() {
+        super.init()
+        startMonitoring()
+    }
+
+    /// Starts monitoring for track changes (polls every 0.5 seconds).
+    private func startMonitoring() {
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
+            self?.checkForTrackChange()
+        }
+    }
+
+    /// Checks if the current track has changed.
+    private func checkForTrackChange() {
+        do {
+            let info = try MusicService.getSelectedTrackInfo()
+            if info.name != lastTrackName && !info.name.isEmpty {
+                lastTrackName = info.name
+                DispatchQueue.main.async {
+                    self.currentTrack = info
+                }
+                NotificationCenter.default.post(name: .musicTrackDidChange, object: info)
+            }
+        } catch {
+            // Music not playing or error reading track — silence this
+        }
+    }
+
+    deinit {
+        timer?.invalidate()
     }
 }

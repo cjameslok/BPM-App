@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
    var calculator: BPMCalculator
    @ObservedObject var rangeStore: BPMRangeStore
+   @ObservedObject private var trackMonitor = MusicTrackMonitor.shared
    @State private var statusMessage: String?
    @State private var isError = false
    @State private var showSettings = false
@@ -212,7 +213,7 @@ struct ContentView: View {
            Button {
                setBPMToSelectedSong()
            } label: {
-               Label("Set BPM to selected song", systemImage: "music.note")
+               Label("Set BPM to song", systemImage: "music.note")
                    .font(.body.weight(.semibold))
                    .frame(maxWidth: .infinity)
                    .padding(.vertical, 4)
@@ -314,6 +315,9 @@ struct ContentView: View {
            refreshTrackInfo()
        }
        .onReceive(NotificationCenter.default.publisher(for: NSWindow.didBecomeKeyNotification)) { _ in
+           refreshTrackInfo()
+       }
+       .onReceive(NotificationCenter.default.publisher(for: .musicTrackDidChange)) { _ in
            refreshTrackInfo()
        }
    }
