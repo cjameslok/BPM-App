@@ -1,6 +1,6 @@
 # AutoBPM
 
-A lightweight macOS menu bar app for fitness instructors and DJs to tap tempo, tag vibes, and sync BPM data directly to Apple Music tracks with teh click of a button.
+A lightweight macOS menu bar app for fitness instructors and DJs to tap tempo, tag vibes, and sync BPM data directly to Apple Music tracks with the click of a button.
 
 ![macOS](https://img.shields.io/badge/platform-macOS-blue)
 ![Swift](https://img.shields.io/badge/Swift-5.9+-orange)
@@ -12,7 +12,7 @@ A lightweight macOS menu bar app for fitness instructors and DJs to tap tempo, t
 - Tap the spacebar (or click) to calculate BPM in real time
 - Averaged BPM from multiple taps for accuracy
 - Auto-resets after 3 seconds of inactivity
-- Double-click the BPM display to copy to clipboard
+- Double-click the BPM display to copy BPM to clipboard
 
 ### 🏷️ Vibe Tags
 - Assign mood/vibe tags (e.g. Chill, Hype, Groovy) to the currently playing track
@@ -22,7 +22,8 @@ A lightweight macOS menu bar app for fitness instructors and DJs to tap tempo, t
 
 ### 🎶 Apple Music Integration
 - View currently playing track info (name, artist, BPM, grouping)
-- Set tapped BPM directly onto the selected track (updates both the BPM field and prepends to the track title)
+- Set tapped BPM directly onto the selected track
+- Optionally prepend BPM to the track title (configurable in Settings)
 - Play/pause control from the menu bar
 - Auto-refreshes track info when the app gains focus or the track changes
 
@@ -33,8 +34,9 @@ A lightweight macOS menu bar app for fitness instructors and DJs to tap tempo, t
 - Persisted via UserDefaults
 
 ### ⚙️ Settings
-- 8 accent color themes
+- Uses the macOS system accent color (set in System Settings → Appearance)
 - Toggle vibe tags feature on/off
+- Toggle "Prepend BPM to song title" on/off
 - Customizable BPM ranges
 
 ## Architecture

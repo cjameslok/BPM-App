@@ -10,7 +10,6 @@ import SwiftUI
 struct ContentView: View {
    @StateObject private var viewModel: ContentViewModel
    @ObservedObject private var trackMonitor = MusicTrackMonitor.shared
-   @AppStorage("accentColorID") private var accentColorID = "blue"
    @AppStorage("showVibeFeature") private var showVibeFeature = true
    @FocusState private var isTagFieldFocused: Bool
 
@@ -21,14 +20,14 @@ struct ContentView: View {
    var body: some View {
        Group {
            if viewModel.showSettings {
-               SettingsView(selectedColorID: $accentColorID, rangeStore: viewModel.rangeStore) {
+               SettingsView(rangeStore: viewModel.rangeStore) {
                    withAnimation { viewModel.showSettings = false }
                }
            } else {
                mainView
            }
        }
-       .tint(resolveAccentColor(for: accentColorID))
+       .tint(Color.accentColor)
    }
    
    private var mainView: some View {
@@ -41,7 +40,7 @@ struct ContentView: View {
                } label: {
                    Image(systemName: "gearshape.fill")
                        .font(.caption)
-                       .foregroundStyle(.secondary)
+                       .foregroundStyle(.white)
                }
                .buttonStyle(.borderless)
                .help("Settings")
