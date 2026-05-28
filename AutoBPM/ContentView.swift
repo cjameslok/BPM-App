@@ -8,37 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-   var calculator: BPMCalculator
-   @ObservedObject var rangeStore: BPMRangeStore
+   @StateObject private var viewModel: ContentViewModel
    @ObservedObject private var trackMonitor = MusicTrackMonitor.shared
-   @State private var statusMessage: String?
-   @State private var isError = false
-   @State private var showSettings = false
    @AppStorage("accentColorID") private var accentColorID = "blue"
-   
-   // Vibe tags
-   @State private var availableTags: [String] = [
-       "Chill", "Hype", "Groovy", "Dark", "Ethereal",
-       "Uplifting", "Sad", "Aggressive", "Sexy", "Throwback"
-   ]
-   @State private var selectedTags: Set<String> = []
-   @State private var customTagInput: String = ""
-   @State private var vibeStatusMessage: String?
-   @State private var isVibeError = false
-   @State private var vibeExpanded = true
    @FocusState private var isTagFieldFocused: Bool
-   @State private var trackInfo: TrackInfo?
-   @State private var isPlaying = false
-   
-   private var roundedBPM: Int {
-       Int(calculator.bpm.rounded())
+
+   init(calculator: BPMCalculator, rangeStore: BPMRangeStore) {
+       _viewModel = StateObject(wrappedValue: ContentViewModel(calculator: calculator, rangeStore: rangeStore))
    }
    
    var body: some View {
        Group {
-           if showSettings {
-               SettingsView(selectedColorID: $accentColorID, rangeStore: rangeStore) {
-                   withAnimation { showSettings = false }
+           if viewModel.showSettings {
+               SettingsView(selectedColorID: $accentColorID, rangeStore: viewModel.rangeStore) {
+                   withAnimation { viewModel.showSettings = false }
                }
            } else {
                mainView
@@ -53,7 +36,7 @@ struct ContentView: View {
            HStack {
                Spacer()
                Button {
-                   withAnimation { showSettings = true }
+                   withAnimation { viewModel.showSettings = true }
                } label: {
                    Image(systemName: "gearshape.fill")
                        .font(.caption)
@@ -64,18 +47,18 @@ struct ContentView: View {
            }
            
            // BPM Display
-           Text(calculator.bpm > 0 ? "\(roundedBPM)" : "—")
+           Text(viewModel.calculator.bpm > 0 ? "\(viewModel.roundedBPM)" : "—")
                .font(.system(size: 64, weight: .bold, design: .rounded))
                .monospacedDigit()
                .contentTransition(.numericText())
-               .animation(.snappy, value: roundedBPM)
+               .animation(.snappy, value: viewModel.roundedBPM)
            
            Text("BPM")
                .font(.title3)
                .foregroundStyle(.secondary)
            
            // Matched range for tapped BPM
-           if roundedBPM > 0, let matched = rangeStore.matchingRange(for: roundedBPM) {
+           if viewModel.roundedBPM > 0, let matched = viewModel.rangeStore.matchingRange(for: viewModel.roundedBPM) {
                Text(matched.name)
                    .font(.caption.weight(.semibold))
                    .padding(.horizontal, 8)
@@ -85,8 +68,8 @@ struct ContentView: View {
            }
            
            // Tap count
-           if calculator.tapCount > 0 {
-               Text("\(calculator.tapCount) taps")
+           if viewModel.calculator.tapCount > 0 {
+               Text("\(viewModel.calculator.tapCount) taps")
                    .font(.caption)
                    .foregroundStyle(.tertiary)
            }
@@ -95,7 +78,7 @@ struct ContentView: View {
            
            // Tap Button
            Button {
-               calculator.tap()
+               viewModel.tap()
            } label: {
                Text("Tap")
                    .font(.title2.weight(.semibold))
@@ -108,8 +91,7 @@ struct ContentView: View {
            
            // Reset Button
            Button {
-               calculator.reset()
-               statusMessage = nil
+               viewModel.reset()
            } label: {
                Text("Reset")
                    .frame(maxWidth: .infinity)
@@ -123,7 +105,7 @@ struct ContentView: View {
                .foregroundStyle(.quaternary)
            
            Divider()
-           DisclosureGroup("Apple Music", isExpanded: $vibeExpanded) {
+           DisclosureGroup("Apple Music", isExpanded: $viewModel.vibeExpanded) {
            // Selected Track Info
            VStack(spacing: 4) {
                HStack {
@@ -132,7 +114,7 @@ struct ContentView: View {
                        .foregroundStyle(.secondary)
                    Spacer()
                    Button {
-                       refreshTrackInfo()
+                       viewModel.refreshTrackInfo()
                    } label: {
                        Image(systemName: "arrow.clockwise")
                            .font(.caption)
@@ -141,18 +123,18 @@ struct ContentView: View {
                    .help("Refresh track info")
                }
                
-               if let trackInfo {
+               if let trackInfo = viewModel.trackInfo {
                    HStack(alignment: .center, spacing: 8) {
                        // Play/Pause button
                        Button {
-                           togglePlayback()
+                           viewModel.togglePlayback()
                        } label: {
-                           Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                           Image(systemName: viewModel.isPlaying ? "pause.circle.fill" : "play.circle.fill")
                                .font(.title2)
                                .foregroundStyle(.tint)
                        }
                        .buttonStyle(.borderless)
-                       .help(isPlaying ? "Pause" : "Play")
+                       .help(viewModel.isPlaying ? "Pause" : "Play")
                        
                        VStack(alignment: .leading, spacing: 2) {
                            Text(trackInfo.name)
@@ -186,7 +168,7 @@ struct ContentView: View {
                            }
                            
                            // Matched song type range
-                           if trackInfo.bpm > 0, let matched = rangeStore.matchingRange(for: trackInfo.bpm) {
+                           if trackInfo.bpm > 0, let matched = viewModel.rangeStore.matchingRange(for: trackInfo.bpm) {
                                Text(matched.name)
                                    .font(.caption2.weight(.semibold))
                                    .padding(.horizontal, 6)
@@ -211,7 +193,7 @@ struct ContentView: View {
            
            // Set BPM to Apple Music
            Button {
-               setBPMToSelectedSong()
+               viewModel.setBPMToSelectedSong()
            } label: {
                Label("Set BPM to song", systemImage: "music.note")
                    .font(.body.weight(.semibold))
@@ -221,13 +203,13 @@ struct ContentView: View {
            .keyboardShortcut(.return, modifiers: [])
            .buttonStyle(.borderedProminent)
            .controlSize(.regular)
-           .disabled(roundedBPM == 0)
+           .disabled(viewModel.roundedBPM == 0)
            
            // BPM Status message
-           if let statusMessage {
+           if let statusMessage = viewModel.statusMessage {
                Text(statusMessage)
                    .font(.caption)
-                   .foregroundStyle(isError ? .red : .green)
+                   .foregroundStyle(viewModel.isError ? .red : .green)
                    .multilineTextAlignment(.center)
                    .transition(.opacity)
            }
@@ -238,37 +220,37 @@ struct ContentView: View {
                VStack(alignment: .leading, spacing: 8) {
                    // Tag chips - wrapping layout
                    FlowLayout(spacing: 6) {
-                       ForEach(availableTags, id: \.self) { tag in
+                       ForEach(viewModel.availableTags, id: \.self) { tag in
                            TagChip(
                                label: tag,
-                               isSelected: selectedTags.contains(tag),
-                               onTap: { toggleTag(tag) },
-                               onRemove: isPresetTag(tag) ? nil : { removeTag(tag) }
+                               isSelected: viewModel.selectedTags.contains(tag),
+                               onTap: { viewModel.toggleTag(tag) },
+                               onRemove: viewModel.isPresetTag(tag) ? nil : { viewModel.removeTag(tag) }
                            )
                        }
                    }
                    
                    // Custom tag input
                    HStack(spacing: 6) {
-                       TextField("Add tag…", text: $customTagInput)
+                       TextField("Add tag…", text: $viewModel.customTagInput)
                            .textFieldStyle(.roundedBorder)
                            .font(.caption)
                            .focused($isTagFieldFocused)
-                           .onSubmit { addCustomTag() }
+                           .onSubmit { viewModel.addCustomTag() }
                        
                        Button {
-                           addCustomTag()
+                           viewModel.addCustomTag()
                        } label: {
                            Image(systemName: "plus.circle.fill")
                        }
                        .buttonStyle(.borderless)
-                       .disabled(customTagInput.trimmingCharacters(in: .whitespaces).isEmpty)
+                       .disabled(viewModel.customTagInput.trimmingCharacters(in: .whitespaces).isEmpty)
                    }
                    
                    // Set Vibe / Reset buttons
                    HStack(spacing: 8) {
                        Button {
-                           setVibeToSelectedSong()
+                           viewModel.setVibeToSelectedSong()
                        } label: {
                            Label("Set vibe", systemImage: "waveform")
                                .font(.body.weight(.semibold))
@@ -277,23 +259,23 @@ struct ContentView: View {
                        }
                        .buttonStyle(.borderedProminent)
                        .controlSize(.regular)
-                       .disabled(selectedTags.isEmpty)
+                       .disabled(viewModel.selectedTags.isEmpty)
                        
                        Button {
-                           resetVibe()
+                           viewModel.resetVibe()
                        } label: {
                            Image(systemName: "arrow.counterclockwise")
                        }
                        .buttonStyle(.bordered)
                        .controlSize(.regular)
-                       .disabled(selectedTags.isEmpty && vibeStatusMessage == nil)
+                       .disabled(viewModel.selectedTags.isEmpty && viewModel.vibeStatusMessage == nil)
                    }
                    
                    // Vibe status message
-                   if let vibeStatusMessage {
+                   if let vibeStatusMessage = viewModel.vibeStatusMessage {
                        Text(vibeStatusMessage)
                            .font(.caption)
-                           .foregroundStyle(isVibeError ? .red : .green)
+                           .foregroundStyle(viewModel.isVibeError ? .red : .green)
                            .multilineTextAlignment(.center)
                            .transition(.opacity)
                    }
@@ -312,101 +294,15 @@ struct ContentView: View {
                }
        }
        .onAppear {
-           refreshTrackInfo()
+           viewModel.refreshTrackInfo()
        }
        .onReceive(NotificationCenter.default.publisher(for: NSWindow.didBecomeKeyNotification)) { _ in
-           refreshTrackInfo()
+           viewModel.refreshTrackInfo()
        }
        .onReceive(NotificationCenter.default.publisher(for: .musicTrackDidChange)) { _ in
-           refreshTrackInfo()
+           viewModel.refreshTrackInfo()
        }
    }
-   
-   // MARK: - Preset tags
-   
-   private static let presetTags: Set<String> = [
-       "Chill", "Hype", "Groovy", "Dark", "Melodic",
-       "Uplifting", "Sad", "Aggressive", "Funky", "Dreamy"
-   ]
-   
-   private func isPresetTag(_ tag: String) -> Bool {
-       Self.presetTags.contains(tag)
-   }
-   
-   // MARK: - Actions
-   
-   private func toggleTag(_ tag: String) {
-       if selectedTags.contains(tag) {
-           selectedTags.remove(tag)
-       } else {
-           selectedTags.insert(tag)
-       }
-   }
-   
-   private func addCustomTag() {
-       let tag = customTagInput.trimmingCharacters(in: .whitespaces)
-       guard !tag.isEmpty else { return }
-       if !availableTags.contains(tag) {
-           availableTags.append(tag)
-       }
-       selectedTags.insert(tag)
-       customTagInput = ""
-   }
-   
-   private func removeTag(_ tag: String) {
-       availableTags.removeAll { $0 == tag }
-       selectedTags.remove(tag)
-   }
-   
-   private func setBPMToSelectedSong() {
-       do {
-           let result = try MusicService.setBPMToSelectedTrack(bpm: roundedBPM)
-           withAnimation { statusMessage = result; isError = false }
-           refreshTrackInfo()
-       } catch {
-           withAnimation { statusMessage = error.localizedDescription; isError = true }
-       }
-   }
-   
-    private func setVibeToSelectedSong() {
-        let orderedTags = availableTags.filter { selectedTags.contains($0) }
-        do {
-            let result = try MusicService.setVibeToSelectedTrack(tags: orderedTags)
-            withAnimation { vibeStatusMessage = result; isVibeError = false }
-            refreshTrackInfo()
-        } catch {
-            withAnimation { vibeStatusMessage = error.localizedDescription; isVibeError = true }
-        }
-    }
-    
-    private func resetVibe() {
-        withAnimation {
-            selectedTags.removeAll()
-            vibeStatusMessage = nil
-        }
-    }
-    
-    private func refreshTrackInfo() {
-        do {
-            trackInfo = try MusicService.getSelectedTrackInfo()
-        } catch {
-            trackInfo = nil
-        }
-        isPlaying = MusicService.isPlaying()
-    }
-    
-    private func togglePlayback() {
-        do {
-            if isPlaying {
-                try MusicService.pause()
-            } else {
-                try MusicService.playSelectedTrack()
-            }
-            isPlaying.toggle()
-        } catch {
-            // silently fail
-        }
-    }
 }
 
 // MARK: - Tag Chip View

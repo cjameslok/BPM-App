@@ -7,7 +7,7 @@
 
 import Foundation
 import AppKit
-internal import Combine
+import Combine
 
 enum MusicServiceError: LocalizedError {
     case noTrackSelected

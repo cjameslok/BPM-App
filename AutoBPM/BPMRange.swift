@@ -6,7 +6,7 @@
 //
 
 import Foundation
-internal import Combine
+import Combine
 
 struct BPMRange: Identifiable, Codable, Hashable {
     var id = UUID()
