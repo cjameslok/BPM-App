@@ -69,7 +69,7 @@ struct MusicService {
     /// - Parameter bpm: The BPM value to set.
     /// - Returns: A description string like "Set 120 BPM → Song Name"
     @discardableResult
-    static func setBPMToSelectedTrack(bpm: Int) throws -> String {
+    static func setBPMToSelectedTrack(bpm: Int, prependToTitle: Bool = true) throws -> String {
         guard bpm > 0 else { throw MusicServiceError.noBPM }
 
         // 1. Get the current track name
@@ -87,7 +87,7 @@ struct MusicService {
 
         // 2. Build the new name: strip any existing leading BPM prefix ("123 - ")
         let stripped = stripExistingBPMPrefix(from: currentName)
-        let newName = "\(bpm) - \(stripped)"
+        let newName = prependToTitle ? "\(bpm) - \(stripped)" : stripped
 
         // 3. Set BPM and name on the currently playing track
         let escapedName = newName.replacingOccurrences(of: "\\", with: "\\\\")

@@ -14,22 +14,37 @@ struct AccentColorOption: Identifiable, Hashable {
 }
 
 let accentColorOptions: [AccentColorOption] = [
-    .init(id: "blue",    name: "Blue",    color: .blue),
-    .init(id: "purple",  name: "Purple",  color: .purple),
-    .init(id: "pink",    name: "Pink",    color: .pink),
-    .init(id: "red",     name: "Red",     color: .red),
-    .init(id: "orange",  name: "Orange",  color: .orange),
-    .init(id: "yellow",  name: "Yellow",  color: .yellow),
-    .init(id: "green",   name: "Green",   color: .green),
-    .init(id: "mint",    name: "Mint",    color: .mint),
-    .init(id: "teal",    name: "Teal",    color: .teal),
-    .init(id: "cyan",    name: "Cyan",    color: .cyan),
-    .init(id: "indigo",  name: "Indigo",  color: .indigo),
+    .init(id: "oceanDeep",
+          name: "Ocean Deep",
+          color: Color(red: 21/255, green: 101/255, blue: 192/255)),
+    .init(id: "blueEnergy",
+          name: "Blue Energy",
+          color: Color(red: 68/255, green: 138/255, blue: 255/255)),
+    .init(id: "verdigris",
+          name: "Verdigris",
+          color: Color(red: 0/255, green: 150/255, blue: 136/255)),
+    .init(id: "yellowGreen",
+          name: "Yellow Green",
+          color: Color(red: 139/255, green: 195/255, blue: 74/255)),
+    .init(id: "amberGold",
+          name: "Amber Gold",
+          color: Color(red: 255/255, green: 193/255, blue: 7/255)),
+    .init(id: "amberGlow",
+          name: "Amber Glow",
+          color: Color(red: 255/255, green: 152/255, blue: 0/255)),
+    .init(id: "cinnabar",
+          name: "Cinnabar",
+          color: Color(red: 244/255, green: 67/255, blue: 54/255)),
+    .init(id: "cherryRose",
+          name: "Cherry Rose",
+          color: Color(red: 173/255, green: 20/255, blue: 87/255)),
 ]
 
 struct SettingsView: View {
     @Binding var selectedColorID: String
     @ObservedObject var rangeStore: BPMRangeStore
+    @AppStorage("showVibeFeature") private var showVibeFeature = true
+    @AppStorage("prependBPMToTitle") private var prependBPMToTitle = true
     var onDismiss: () -> Void
     
     @State private var newName = ""
@@ -86,6 +101,20 @@ struct SettingsView: View {
                                     }
                             }
                         }
+                    }
+                    
+                    Divider()
+                    
+                    // Vibe Feature
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Features")
+                            .font(.subheadline.weight(.medium))
+                        
+                        Toggle("Show Vibe Tags", isOn: $showVibeFeature)
+                            .font(.caption)
+                        
+                        Toggle("Prepend BPM to song title", isOn: $prependBPMToTitle)
+                            .font(.caption)
                     }
                     
                     Divider()

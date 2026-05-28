@@ -11,6 +11,7 @@ struct ContentView: View {
    @StateObject private var viewModel: ContentViewModel
    @ObservedObject private var trackMonitor = MusicTrackMonitor.shared
    @AppStorage("accentColorID") private var accentColorID = "blue"
+   @AppStorage("showVibeFeature") private var showVibeFeature = true
    @FocusState private var isTagFieldFocused: Bool
 
    init(calculator: BPMCalculator, rangeStore: BPMRangeStore) {
@@ -52,6 +53,12 @@ struct ContentView: View {
                .monospacedDigit()
                .contentTransition(.numericText())
                .animation(.snappy, value: viewModel.roundedBPM)
+               .onTapGesture(count: 2) {
+                   guard viewModel.roundedBPM > 0 else { return }
+                   NSPasteboard.general.clearContents()
+                   NSPasteboard.general.setString("\(viewModel.roundedBPM)", forType: .string)
+                   withAnimation { viewModel.statusMessage = "Copied \(viewModel.roundedBPM) BPM to clipboard"; viewModel.isError = false }
+               }
            
            Text("BPM")
                .font(.title3)
@@ -216,71 +223,72 @@ struct ContentView: View {
            
            Divider()
            
-           
-               VStack(alignment: .leading, spacing: 8) {
-                   // Tag chips - wrapping layout
-                   FlowLayout(spacing: 6) {
-                       ForEach(viewModel.availableTags, id: \.self) { tag in
-                           TagChip(
-                               label: tag,
-                               isSelected: viewModel.selectedTags.contains(tag),
-                               onTap: { viewModel.toggleTag(tag) },
-                               onRemove: viewModel.isPresetTag(tag) ? nil : { viewModel.removeTag(tag) }
-                           )
+               if showVibeFeature {
+                   VStack(alignment: .leading, spacing: 8) {
+                       // Tag chips - wrapping layout
+                       FlowLayout(spacing: 6) {
+                           ForEach(viewModel.availableTags, id: \.self) { tag in
+                               TagChip(
+                                label: tag,
+                                isSelected: viewModel.selectedTags.contains(tag),
+                                onTap: { viewModel.toggleTag(tag) },
+                                onRemove: viewModel.isPresetTag(tag) ? nil : { viewModel.removeTag(tag) }
+                               )
+                           }
                        }
-                   }
-                   
-                   // Custom tag input
-                   HStack(spacing: 6) {
-                       TextField("Add tag…", text: $viewModel.customTagInput)
-                           .textFieldStyle(.roundedBorder)
-                           .font(.caption)
-                           .focused($isTagFieldFocused)
-                           .onSubmit { viewModel.addCustomTag() }
                        
-                       Button {
-                           viewModel.addCustomTag()
-                       } label: {
-                           Image(systemName: "plus.circle.fill")
+                       // Custom tag input
+                       HStack(spacing: 6) {
+                           TextField("Add tag…", text: $viewModel.customTagInput)
+                               .textFieldStyle(.roundedBorder)
+                               .font(.caption)
+                               .focused($isTagFieldFocused)
+                               .onSubmit { viewModel.addCustomTag() }
+                           
+                           Button {
+                               viewModel.addCustomTag()
+                           } label: {
+                               Image(systemName: "plus.circle.fill")
+                           }
+                           .buttonStyle(.borderless)
+                           .disabled(viewModel.customTagInput.trimmingCharacters(in: .whitespaces).isEmpty)
                        }
-                       .buttonStyle(.borderless)
-                       .disabled(viewModel.customTagInput.trimmingCharacters(in: .whitespaces).isEmpty)
-                   }
-                   
-                   // Set Vibe / Reset buttons
-                   HStack(spacing: 8) {
-                       Button {
-                           viewModel.setVibeToSelectedSong()
-                       } label: {
-                           Label("Set vibe", systemImage: "waveform")
-                               .font(.body.weight(.semibold))
-                               .frame(maxWidth: .infinity)
-                               .padding(.vertical, 4)
-                       }
-                       .buttonStyle(.borderedProminent)
-                       .controlSize(.regular)
-                       .disabled(viewModel.selectedTags.isEmpty)
                        
-                       Button {
-                           viewModel.resetVibe()
-                       } label: {
-                           Image(systemName: "arrow.counterclockwise")
+                       // Set Vibe / Reset buttons
+                       HStack(spacing: 8) {
+                           Button {
+                               viewModel.setVibeToSelectedSong()
+                           } label: {
+                               Label("Set vibe", systemImage: "waveform")
+                                   .font(.body.weight(.semibold))
+                                   .frame(maxWidth: .infinity)
+                                   .padding(.vertical, 4)
+                           }
+                           .buttonStyle(.borderedProminent)
+                           .controlSize(.regular)
+                           .disabled(viewModel.selectedTags.isEmpty)
+                           
+                           Button {
+                               viewModel.resetVibe()
+                           } label: {
+                               Image(systemName: "arrow.counterclockwise")
+                           }
+                           .buttonStyle(.bordered)
+                           .controlSize(.regular)
+                           .disabled(viewModel.selectedTags.isEmpty && viewModel.vibeStatusMessage == nil)
                        }
-                       .buttonStyle(.bordered)
-                       .controlSize(.regular)
-                       .disabled(viewModel.selectedTags.isEmpty && viewModel.vibeStatusMessage == nil)
+                       
+                       // Vibe status message
+                       if let vibeStatusMessage = viewModel.vibeStatusMessage {
+                           Text(vibeStatusMessage)
+                               .font(.caption)
+                               .foregroundStyle(viewModel.isVibeError ? .red : .green)
+                               .multilineTextAlignment(.center)
+                               .transition(.opacity)
+                       }
                    }
-                   
-                   // Vibe status message
-                   if let vibeStatusMessage = viewModel.vibeStatusMessage {
-                       Text(vibeStatusMessage)
-                           .font(.caption)
-                           .foregroundStyle(viewModel.isVibeError ? .red : .green)
-                           .multilineTextAlignment(.center)
-                           .transition(.opacity)
-                   }
+                   .padding(.top, 4)
                }
-               .padding(.top, 4)
            }
            .font(.headline)
        }

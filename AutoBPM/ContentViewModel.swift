@@ -79,8 +79,9 @@ class ContentViewModel: ObservableObject {
     }
 
     func setBPMToSelectedSong() {
+        let prepend = UserDefaults.standard.object(forKey: "prependBPMToTitle") as? Bool ?? true
         do {
-            let result = try MusicService.setBPMToSelectedTrack(bpm: roundedBPM)
+            let result = try MusicService.setBPMToSelectedTrack(bpm: roundedBPM, prependToTitle: prepend)
             withAnimation { statusMessage = result; isError = false }
             refreshTrackInfo()
         } catch {
