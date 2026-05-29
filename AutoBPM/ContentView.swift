@@ -63,21 +63,22 @@ struct ContentView: View {
                .font(.title3)
                .foregroundStyle(.secondary)
            
-           // Matched range for tapped BPM
-           if viewModel.roundedBPM > 0, let matched = viewModel.rangeStore.matchingRange(for: viewModel.roundedBPM) {
-               Text(matched.name)
-                   .font(.caption.weight(.semibold))
-                   .padding(.horizontal, 8)
-                   .padding(.vertical, 2)
-                   .background(Color.accentColor.opacity(0.2))
-                   .clipShape(Capsule())
-           }
-           
-           // Tap count
+           // Tap count and matched range
            if viewModel.calculator.tapCount > 0 {
-               Text("\(viewModel.calculator.tapCount) taps")
-                   .font(.caption)
-                   .foregroundStyle(.tertiary)
+               HStack(spacing: 6) {
+                   Text("\(viewModel.calculator.tapCount) taps")
+                       .font(.caption)
+                       .foregroundStyle(.tertiary)
+                   
+                   if viewModel.roundedBPM > 0, let matched = viewModel.rangeStore.matchingRange(for: viewModel.roundedBPM) {
+                       Text(matched.name)
+                           .font(.caption.weight(.semibold))
+                           .padding(.horizontal, 8)
+                           .padding(.vertical, 2)
+                           .background(Color.accentColor.opacity(0.2))
+                           .clipShape(Capsule())
+                   }
+               }
            }
            
            Divider()
@@ -86,10 +87,15 @@ struct ContentView: View {
            Button {
                viewModel.tap()
            } label: {
-               Text("Tap")
-                   .font(.title2.weight(.semibold))
-                   .frame(maxWidth: .infinity)
-                   .padding(.vertical, 8)
+               VStack(spacing: 2) {
+                   Text("Tap")
+                       .font(.title2.weight(.semibold))
+                   Text("press space bar")
+                       .font(.caption2)
+                       .opacity(0.7)
+               }
+               .frame(maxWidth: .infinity)
+               .padding(.vertical, 8)
            }
            .keyboardShortcut(.space, modifiers: [])
            .buttonStyle(.borderedProminent)
@@ -106,16 +112,12 @@ struct ContentView: View {
            .buttonStyle(.bordered)
            .controlSize(.regular)
            
-           Text("Press **Space** to tap, **Return** to set BPM, **Delete** to reset")
-               .font(.caption2)
-               .foregroundStyle(.quaternary)
-           
            Divider()
            DisclosureGroup("Apple Music", isExpanded: $viewModel.vibeExpanded) {
            // Selected Track Info
            VStack(spacing: 4) {
                HStack {
-                   Text("Selected Track")
+                   Text("Now Playing")
                        .font(.caption.weight(.semibold))
                        .foregroundStyle(.secondary)
                    Spacer()
@@ -164,6 +166,15 @@ struct ContentView: View {
                                .font(.caption2)
                                .foregroundStyle(trackInfo.bpm > 0 ? .primary : .tertiary)
                                
+                               if trackInfo.bpm > 0, let matched = viewModel.rangeStore.matchingRange(for: trackInfo.bpm) {
+                                   Text(matched.name)
+                                       .font(.caption2.weight(.semibold))
+                                       .padding(.horizontal, 6)
+                                       .padding(.vertical, 2)
+                                       .background(Color.accentColor.opacity(0.2))
+                                       .clipShape(Capsule())
+                               }
+                               
                                if !trackInfo.grouping.isEmpty {
                                    Label(trackInfo.grouping, systemImage: "tag")
                                        .font(.caption2)
@@ -172,16 +183,6 @@ struct ContentView: View {
                                        .truncationMode(.tail)
                                }
                            }
-                           
-                           // Matched song type range
-                           if trackInfo.bpm > 0, let matched = viewModel.rangeStore.matchingRange(for: trackInfo.bpm) {
-                               Text(matched.name)
-                                   .font(.caption2.weight(.semibold))
-                                   .padding(.horizontal, 6)
-                                   .padding(.vertical, 2)
-                                   .background(Color.accentColor.opacity(0.2))
-                                   .clipShape(Capsule())
-                           }
                        }
                    }
                    .padding(8)
@@ -189,7 +190,7 @@ struct ContentView: View {
                    .background(Color.secondary.opacity(0.08))
                    .clipShape(RoundedRectangle(cornerRadius: 6))
                } else {
-                   Text("No track selected")
+                   Text("No track playing")
                        .font(.caption)
                        .foregroundStyle(.tertiary)
                        .frame(maxWidth: .infinity)
@@ -201,10 +202,15 @@ struct ContentView: View {
            Button {
                viewModel.setBPMToSelectedSong()
            } label: {
-               Label("Set BPM to song", systemImage: "music.note")
-                   .font(.body.weight(.semibold))
-                   .frame(maxWidth: .infinity)
-                   .padding(.vertical, 4)
+               VStack(spacing: 2) {
+                   Label("Set BPM to song", systemImage: "music.note")
+                       .font(.body.weight(.semibold))
+                   Text("press enter")
+                       .font(.caption2)
+                       .opacity(0.7)
+               }
+               .frame(maxWidth: .infinity)
+               .padding(.vertical, 4)
            }
            .keyboardShortcut(.return, modifiers: [])
            .buttonStyle(.borderedProminent)
