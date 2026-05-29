@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
    @StateObject private var viewModel: ContentViewModel
    @ObservedObject private var trackMonitor = MusicTrackMonitor.shared
-   @AppStorage("showVibeFeature") private var showVibeFeature = true
+   @AppStorage("showVibeFeature") private var showVibeFeature = false
    @FocusState private var isTagFieldFocused: Bool
 
    init(calculator: BPMCalculator, rangeStore: BPMRangeStore) {
