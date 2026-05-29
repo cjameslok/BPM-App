@@ -293,6 +293,12 @@ struct ContentView: View {
        }
        .padding(20)
        .frame(width: 260)
+       .contextMenu {
+           Button("Quit") {
+               NSApplication.shared.terminate(nil)
+           }
+           .keyboardShortcut("q")
+       }
        .background {
            Color.clear
                .contentShape(Rectangle())
