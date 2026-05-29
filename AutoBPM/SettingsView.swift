@@ -62,7 +62,7 @@ struct SettingsView: View {
                     
                     // BPM Ranges
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("Song Type Ranges")
+                        Text("Song Ranges")
                             .font(.subheadline.weight(.medium))
                         
                         // Existing ranges
@@ -105,7 +105,7 @@ struct SettingsView: View {
                                 Label("Add", systemImage: "plus.circle.fill")
                                     .frame(maxWidth: .infinity)
                             }
-                            .buttonStyle(.bordered)
+                            .buttonStyle(.borderedProminent)
                             .controlSize(.small)
                             .disabled(newName.trimmingCharacters(in: .whitespaces).isEmpty)
                         }

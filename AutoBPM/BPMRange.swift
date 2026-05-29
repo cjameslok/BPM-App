@@ -39,11 +39,10 @@ final class BPMRangeStore: ObservableObject {
            let decoded = try? JSONDecoder().decode([BPMRange].self, from: data) {
             ranges = decoded
         } else {
-            // Sensible defaults for fitness instructors
             ranges = [
                 BPMRange(name: "Recovery",  min: 70, max: 75),
                 BPMRange(name: "Slow jog", min: 80, max: 90),
-                BPMRange(name: "Fast jog",    min: 90,  max: 105),
+                BPMRange(name: "Fast jog",    min: 91,  max: 105),
                 BPMRange(name: "Sprint",   min: 120, max: 140),
                 BPMRange(name: "Climb", min: 60,  max: 68),
             ]
