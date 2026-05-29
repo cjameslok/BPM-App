@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject var rangeStore: BPMRangeStore
-    @AppStorage("showVibeFeature") private var showVibeFeature = true
+    @AppStorage("showVibeFeature") private var showVibeFeature = false
     @AppStorage("prependBPMToTitle") private var prependBPMToTitle = true
     var onDismiss: () -> Void
     
@@ -51,10 +51,10 @@ struct SettingsView: View {
                         Text("Features")
                             .font(.subheadline.weight(.medium))
                         
-                        Toggle("Show Vibe Tags", isOn: $showVibeFeature)
+                        Toggle("Prepend BPM to song title", isOn: $prependBPMToTitle)
                             .font(.caption)
                         
-                        Toggle("Prepend BPM to song title", isOn: $prependBPMToTitle)
+                        Toggle("Show vibe tags", isOn: $showVibeFeature)
                             .font(.caption)
                     }
                     

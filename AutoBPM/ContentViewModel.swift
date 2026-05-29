@@ -17,8 +17,8 @@ class ContentViewModel: ObservableObject {
     @Published var isError = false
     @Published var showSettings = false
     @Published var availableTags: [String] = [
-        "Chill", "Hype", "Groovy", "Dark", "Ethereal",
-        "Uplifting", "Sad", "Aggressive", "Sexy", "Throwback"
+        "Chill", "Hype", "Dark",
+        "Sad", "Sexy", "Throwback"
     ]
     @Published var selectedTags: Set<String> = []
     @Published var customTagInput: String = ""
@@ -29,8 +29,8 @@ class ContentViewModel: ObservableObject {
     @Published var isPlaying = false
 
     private static let presetTags: Set<String> = [
-        "Chill", "Hype", "Groovy", "Dark", "Melodic",
-        "Uplifting", "Sad", "Aggressive", "Funky", "Dreamy"
+        "Chill", "Hype", "Dark",
+        "Sad", "Sexy", "Throwback"
     ]
 
     var roundedBPM: Int {
