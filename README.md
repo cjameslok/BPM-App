@@ -6,6 +6,10 @@ A lightweight macOS menu bar app for fitness instructors and DJs to tap tempo, t
 ![Swift](https://img.shields.io/badge/Swift-5.9+-orange)
 ![Architecture](https://img.shields.io/badge/architecture-MVVM-green)
 
+<img width="200" alt="Screenshot 1" src="https://github.com/user-attachments/assets/0fcc8c97-7c87-4dc9-9263-0f4bbdb6203b" />
+<img width="200" alt="Screenshot 2" src="https://github.com/user-attachments/assets/3ee05e7b-a64e-4418-8c2f-6d9a94b947a5" />
+
+
 ## Features
 
 ### 🎵 Tap Tempo
