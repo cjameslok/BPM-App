@@ -6,6 +6,18 @@ A lightweight macOS menu bar app for fitness instructors and DJs to tap tempo, t
 ![Swift](https://img.shields.io/badge/Swift-5.9+-orange)
 ![Architecture](https://img.shields.io/badge/architecture-MVVM-green)
 
+<img width="200" alt="Screenshot 1" src="https://github.com/user-attachments/assets/8970a88e-26ba-4677-8f6b-288af081e839" />
+<img width="200" alt="Screenshot 2" src="https://github.com/user-attachments/assets/6c6eb5a1-1b92-4cc3-8293-4f87177fe382" />
+
+
+## How to use
+
+1. Play a song from your library in the Apple Music app.
+2. Open the menu bar app and start tapping to the beat with the space bar.
+3. Click Enter to assign the value to the song's BPM field and prepend it to the track title.
+
+<img width="800" src="https://github.com/user-attachments/assets/4ec25791-c3dd-4c70-9fe8-5b39d5e10926" />
+
 ## Features
 
 ### 🎵 Tap Tempo
