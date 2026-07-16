@@ -108,6 +108,12 @@ class ContentViewModel: ObservableObject {
     }
 
     func refreshTrackInfo() {
+        // Don't send Music any Apple events unless it's already running — they would launch it
+        guard MusicService.isMusicRunning() else {
+            trackInfo = nil
+            isPlaying = false
+            return
+        }
         do {
             trackInfo = try MusicService.getSelectedTrackInfo()
         } catch {

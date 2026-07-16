@@ -296,6 +296,12 @@ struct ContentView: View {
                }
            }
            .font(.headline)
+
+           // Footer
+           Text("© 2026 James Lok")
+               .font(.caption2)
+               .foregroundStyle(.tertiary)
+               .frame(maxWidth: .infinity, alignment: .leading)
        }
        .padding(20)
        .frame(width: 260)

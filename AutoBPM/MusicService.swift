@@ -104,14 +104,35 @@ struct MusicService {
         return "Set \(bpm) BPM → \(newName)"
     }
 
-    /// Sets the grouping field on the currently playing Apple Music track to comma-separated vibe tags.
+    /// Appends comma-separated vibe tags to the grouping field on the currently playing Apple Music track,
+    /// preserving any existing text and skipping tags already present.
     /// - Parameter tags: The vibe tags to write.
     /// - Returns: A description string like "Set vibes → Chill, Groovy"
     @discardableResult
     static func setVibeToSelectedTrack(tags: [String]) throws -> String {
         guard !tags.isEmpty else { throw MusicServiceError.noVibe }
 
-        let vibeString = tags.joined(separator: ", ")
+        // Read the existing grouping so new tags are appended rather than overwriting
+        let getGrouping = """
+        tell application "Music"
+            if player state is playing then
+                return grouping of current track
+            else
+                error "Nothing is playing"
+            end if
+        end tell
+        """
+        let existing = try runAppleScript(getGrouping)
+            .components(separatedBy: ",")
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .filter { !$0.isEmpty }
+
+        var combined = existing
+        for tag in tags where !combined.contains(where: { $0.caseInsensitiveCompare(tag) == .orderedSame }) {
+            combined.append(tag)
+        }
+
+        let vibeString = combined.joined(separator: ", ")
         let escapedVibe = vibeString.replacingOccurrences(of: "\\", with: "\\\\")
                                     .replacingOccurrences(of: "\"", with: "\\\"")
 
@@ -146,6 +167,12 @@ struct MusicService {
     /// Pauses playback in Apple Music.
     static func pause() throws {
         try runAppleScript("tell application \"Music\" to pause")
+    }
+
+    /// Returns true if the Music app is running, without sending it any Apple events
+    /// (which would launch it if it weren't).
+    static func isMusicRunning() -> Bool {
+        NSWorkspace.shared.runningApplications.contains { $0.bundleIdentifier == "com.apple.Music" }
     }
 
     /// Returns true if Apple Music is currently playing.
@@ -217,6 +244,8 @@ final class MusicTrackMonitor: NSObject, ObservableObject {
 
     /// Checks if the current track has changed.
     private func checkForTrackChange() {
+        // Skip polling entirely when Music isn't running, so we never launch it
+        guard MusicService.isMusicRunning() else { return }
         do {
             let info = try MusicService.getSelectedTrackInfo()
             if info.name != lastTrackName && !info.name.isEmpty {
