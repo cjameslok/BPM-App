@@ -1,4 +1,4 @@
-# AutoBPM
+# BeatTag
 
 A lightweight macOS menu bar app for fitness instructors and DJs to tap tempo, tag vibes, and sync BPM data directly to Apple Music tracks with the click of a button.
 
@@ -53,7 +53,7 @@ A lightweight macOS menu bar app for fitness instructors and DJs to tap tempo, t
 
 ## Architecture
 
-AutoBPM follows **MVVM (Model-View-ViewModel)** architecture:
+BeatTag follows **MVVM (Model-View-ViewModel)** architecture:
 
 ```
 ┌─────────────────────────────────────────────┐
@@ -85,7 +85,7 @@ AutoBPM follows **MVVM (Model-View-ViewModel)** architecture:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/AutoBPM.git
+   git clone https://github.com/your-username/BeatTag.git
    ```
 2. Open `AutoBPM.xcodeproj` in Xcode
 3. Build and run (⌘R)
@@ -110,7 +110,7 @@ Open the project in Xcode and run tests with ⌘U. Test files:
 
 ## Permissions
 
-AutoBPM requires **Automation** permission to control Apple Music via AppleScript. macOS will prompt for this on first use.
+BeatTag requires **Automation** permission to control Apple Music via AppleScript. macOS will prompt for this on first use.
 
 ## License
 
