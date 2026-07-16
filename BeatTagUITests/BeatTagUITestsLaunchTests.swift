@@ -1,13 +1,13 @@
 //
-//  AutoBPMUITestsLaunchTests.swift
-//  AutoBPMUITests
+//  BeatTagUITestsLaunchTests.swift
+//  BeatTagUITests
 //
 //  Created by James Lok on 2026-02-28.
 //
 
 import XCTest
 
-final class AutoBPMUITestsLaunchTests: XCTestCase {
+final class BeatTagUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

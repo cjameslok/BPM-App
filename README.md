@@ -87,7 +87,7 @@ BeatTag follows **MVVM (Model-View-ViewModel)** architecture:
    ```bash
    git clone https://github.com/your-username/BeatTag.git
    ```
-2. Open `AutoBPM.xcodeproj` in Xcode
+2. Open `BeatTag.xcodeproj` in Xcode
 3. Build and run (⌘R)
 4. The app appears in your menu bar with a metronome icon
 

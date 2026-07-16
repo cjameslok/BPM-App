@@ -1,13 +1,13 @@
 //
-//  AutoBPMUITests.swift
-//  AutoBPMUITests
+//  BeatTagUITests.swift
+//  BeatTagUITests
 //
 //  Created by James Lok on 2026-02-28.
 //
 
 import XCTest
 
-final class AutoBPMUITests: XCTestCase {
+final class BeatTagUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

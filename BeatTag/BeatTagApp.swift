@@ -1,6 +1,6 @@
 //
-//  AutoBPMApp.swift
-//  AutoBPM
+//  BeatTagApp.swift
+//  BeatTag
 //
 //  Created by James Lok on 2026-02-28.
 //
@@ -9,7 +9,7 @@ import SwiftUI
 import AppKit
 
 @main
-struct AutoBPMApp: App {
+struct BeatTagApp: App {
     @State private var calculator = BPMCalculator()
     @StateObject private var rangeStore = BPMRangeStore()
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate

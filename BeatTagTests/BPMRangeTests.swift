@@ -1,6 +1,6 @@
 import Testing
 import Foundation
-@testable import AutoBPM
+@testable import BeatTag
 
 struct BPMRangeTests {
 

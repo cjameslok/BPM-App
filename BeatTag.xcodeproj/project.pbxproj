@@ -12,37 +12,37 @@
 			containerPortal = 331A1C212F530AC800EE99B6 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 331A1C282F530AC800EE99B6;
-			remoteInfo = AutoBPM;
+			remoteInfo = BeatTag;
 		};
 		331A1C412F530AC900EE99B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 331A1C212F530AC800EE99B6 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 331A1C282F530AC800EE99B6;
-			remoteInfo = AutoBPM;
+			remoteInfo = BeatTag;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		331A1C292F530AC800EE99B6 /* AutoBPM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoBPM.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		331A1C362F530AC900EE99B6 /* AutoBPMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AutoBPMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		331A1C402F530AC900EE99B6 /* AutoBPMUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AutoBPMUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		331A1C292F530AC800EE99B6 /* BeatTag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeatTag.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		331A1C362F530AC900EE99B6 /* BeatTagTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeatTagTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		331A1C402F530AC900EE99B6 /* BeatTagUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeatTagUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		331A1C2B2F530AC800EE99B6 /* AutoBPM */ = {
+		331A1C2B2F530AC800EE99B6 /* BeatTag */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = AutoBPM;
+			path = BeatTag;
 			sourceTree = "<group>";
 		};
-		331A1C392F530AC900EE99B6 /* AutoBPMTests */ = {
+		331A1C392F530AC900EE99B6 /* BeatTagTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = AutoBPMTests;
+			path = BeatTagTests;
 			sourceTree = "<group>";
 		};
-		331A1C432F530AC900EE99B6 /* AutoBPMUITests */ = {
+		331A1C432F530AC900EE99B6 /* BeatTagUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = AutoBPMUITests;
+			path = BeatTagUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,9 +75,9 @@
 		331A1C202F530AC800EE99B6 = {
 			isa = PBXGroup;
 			children = (
-				331A1C2B2F530AC800EE99B6 /* AutoBPM */,
-				331A1C392F530AC900EE99B6 /* AutoBPMTests */,
-				331A1C432F530AC900EE99B6 /* AutoBPMUITests */,
+				331A1C2B2F530AC800EE99B6 /* BeatTag */,
+				331A1C392F530AC900EE99B6 /* BeatTagTests */,
+				331A1C432F530AC900EE99B6 /* BeatTagUITests */,
 				331A1C2A2F530AC800EE99B6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -85,9 +85,9 @@
 		331A1C2A2F530AC800EE99B6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				331A1C292F530AC800EE99B6 /* AutoBPM.app */,
-				331A1C362F530AC900EE99B6 /* AutoBPMTests.xctest */,
-				331A1C402F530AC900EE99B6 /* AutoBPMUITests.xctest */,
+				331A1C292F530AC800EE99B6 /* BeatTag.app */,
+				331A1C362F530AC900EE99B6 /* BeatTagTests.xctest */,
+				331A1C402F530AC900EE99B6 /* BeatTagUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		331A1C282F530AC800EE99B6 /* AutoBPM */ = {
+		331A1C282F530AC800EE99B6 /* BeatTag */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 331A1C4A2F530AC900EE99B6 /* Build configuration list for PBXNativeTarget "AutoBPM" */;
+			buildConfigurationList = 331A1C4A2F530AC900EE99B6 /* Build configuration list for PBXNativeTarget "BeatTag" */;
 			buildPhases = (
 				331A1C252F530AC800EE99B6 /* Sources */,
 				331A1C262F530AC800EE99B6 /* Frameworks */,
@@ -108,18 +108,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				331A1C2B2F530AC800EE99B6 /* AutoBPM */,
+				331A1C2B2F530AC800EE99B6 /* BeatTag */,
 			);
-			name = AutoBPM;
+			name = BeatTag;
 			packageProductDependencies = (
 			);
-			productName = AutoBPM;
-			productReference = 331A1C292F530AC800EE99B6 /* AutoBPM.app */;
+			productName = BeatTag;
+			productReference = 331A1C292F530AC800EE99B6 /* BeatTag.app */;
 			productType = "com.apple.product-type.application";
 		};
-		331A1C352F530AC900EE99B6 /* AutoBPMTests */ = {
+		331A1C352F530AC900EE99B6 /* BeatTagTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 331A1C4D2F530AC900EE99B6 /* Build configuration list for PBXNativeTarget "AutoBPMTests" */;
+			buildConfigurationList = 331A1C4D2F530AC900EE99B6 /* Build configuration list for PBXNativeTarget "BeatTagTests" */;
 			buildPhases = (
 				331A1C322F530AC900EE99B6 /* Sources */,
 				331A1C332F530AC900EE99B6 /* Frameworks */,
@@ -131,18 +131,18 @@
 				331A1C382F530AC900EE99B6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				331A1C392F530AC900EE99B6 /* AutoBPMTests */,
+				331A1C392F530AC900EE99B6 /* BeatTagTests */,
 			);
-			name = AutoBPMTests;
+			name = BeatTagTests;
 			packageProductDependencies = (
 			);
-			productName = AutoBPMTests;
-			productReference = 331A1C362F530AC900EE99B6 /* AutoBPMTests.xctest */;
+			productName = BeatTagTests;
+			productReference = 331A1C362F530AC900EE99B6 /* BeatTagTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		331A1C3F2F530AC900EE99B6 /* AutoBPMUITests */ = {
+		331A1C3F2F530AC900EE99B6 /* BeatTagUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 331A1C502F530AC900EE99B6 /* Build configuration list for PBXNativeTarget "AutoBPMUITests" */;
+			buildConfigurationList = 331A1C502F530AC900EE99B6 /* Build configuration list for PBXNativeTarget "BeatTagUITests" */;
 			buildPhases = (
 				331A1C3C2F530AC900EE99B6 /* Sources */,
 				331A1C3D2F530AC900EE99B6 /* Frameworks */,
@@ -154,13 +154,13 @@
 				331A1C422F530AC900EE99B6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				331A1C432F530AC900EE99B6 /* AutoBPMUITests */,
+				331A1C432F530AC900EE99B6 /* BeatTagUITests */,
 			);
-			name = AutoBPMUITests;
+			name = BeatTagUITests;
 			packageProductDependencies = (
 			);
-			productName = AutoBPMUITests;
-			productReference = 331A1C402F530AC900EE99B6 /* AutoBPMUITests.xctest */;
+			productName = BeatTagUITests;
+			productReference = 331A1C402F530AC900EE99B6 /* BeatTagUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -186,7 +186,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 331A1C242F530AC800EE99B6 /* Build configuration list for PBXProject "AutoBPM" */;
+			buildConfigurationList = 331A1C242F530AC800EE99B6 /* Build configuration list for PBXProject "BeatTag" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,9 +200,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				331A1C282F530AC800EE99B6 /* AutoBPM */,
-				331A1C352F530AC900EE99B6 /* AutoBPMTests */,
-				331A1C3F2F530AC900EE99B6 /* AutoBPMUITests */,
+				331A1C282F530AC800EE99B6 /* BeatTag */,
+				331A1C352F530AC900EE99B6 /* BeatTagTests */,
+				331A1C3F2F530AC900EE99B6 /* BeatTagUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,12 +258,12 @@
 /* Begin PBXTargetDependency section */
 		331A1C382F530AC900EE99B6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 331A1C282F530AC800EE99B6 /* AutoBPM */;
+			target = 331A1C282F530AC800EE99B6 /* BeatTag */;
 			targetProxy = 331A1C372F530AC900EE99B6 /* PBXContainerItemProxy */;
 		};
 		331A1C422F530AC900EE99B6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 331A1C282F530AC800EE99B6 /* AutoBPM */;
+			target = 331A1C282F530AC800EE99B6 /* BeatTag */;
 			targetProxy = 331A1C412F530AC900EE99B6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -394,7 +394,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = AutoBPM/AutoBPM.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BeatTag/BeatTag.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -431,7 +431,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = AutoBPM/AutoBPM.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BeatTag/BeatTag.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -473,14 +473,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.James.TempoToolkit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.James.BeatTagTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AutoBPM.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AutoBPM";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BeatTag.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BeatTag";
 			};
 			name = Debug;
 		};
@@ -494,14 +494,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.James.TempoToolkit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.James.BeatTagTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AutoBPM.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AutoBPM";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BeatTag.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BeatTag";
 			};
 			name = Release;
 		};
@@ -513,14 +513,14 @@
 				DEVELOPMENT_TEAM = 8GU57R4NVC;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.James.TempoToolkit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.James.BeatTagUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = AutoBPM;
+				TEST_TARGET_NAME = BeatTag;
 			};
 			name = Debug;
 		};
@@ -532,21 +532,21 @@
 				DEVELOPMENT_TEAM = 8GU57R4NVC;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.James.TempoToolkit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.James.BeatTagUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = AutoBPM;
+				TEST_TARGET_NAME = BeatTag;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		331A1C242F530AC800EE99B6 /* Build configuration list for PBXProject "AutoBPM" */ = {
+		331A1C242F530AC800EE99B6 /* Build configuration list for PBXProject "BeatTag" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				331A1C482F530AC900EE99B6 /* Debug */,
@@ -555,7 +555,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		331A1C4A2F530AC900EE99B6 /* Build configuration list for PBXNativeTarget "AutoBPM" */ = {
+		331A1C4A2F530AC900EE99B6 /* Build configuration list for PBXNativeTarget "BeatTag" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				331A1C4B2F530AC900EE99B6 /* Debug */,
@@ -564,7 +564,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		331A1C4D2F530AC900EE99B6 /* Build configuration list for PBXNativeTarget "AutoBPMTests" */ = {
+		331A1C4D2F530AC900EE99B6 /* Build configuration list for PBXNativeTarget "BeatTagTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				331A1C4E2F530AC900EE99B6 /* Debug */,
@@ -573,7 +573,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		331A1C502F530AC900EE99B6 /* Build configuration list for PBXNativeTarget "AutoBPMUITests" */ = {
+		331A1C502F530AC900EE99B6 /* Build configuration list for PBXNativeTarget "BeatTagUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				331A1C512F530AC900EE99B6 /* Debug */,

@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "331A1C282F530AC800EE99B6"
-               BuildableName = "AutoBPM.app"
-               BlueprintName = "AutoBPM"
-               ReferencedContainer = "container:AutoBPM.xcodeproj">
+               BuildableName = "BeatTag.app"
+               BlueprintName = "BeatTag"
+               ReferencedContainer = "container:BeatTag.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -36,9 +36,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "331A1C352F530AC900EE99B6"
-               BuildableName = "AutoBPMTests.xctest"
-               BlueprintName = "AutoBPMTests"
-               ReferencedContainer = "container:AutoBPM.xcodeproj">
+               BuildableName = "BeatTagTests.xctest"
+               BlueprintName = "BeatTagTests"
+               ReferencedContainer = "container:BeatTag.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "331A1C3F2F530AC900EE99B6"
-               BuildableName = "AutoBPMUITests.xctest"
-               BlueprintName = "AutoBPMUITests"
-               ReferencedContainer = "container:AutoBPM.xcodeproj">
+               BuildableName = "BeatTagUITests.xctest"
+               BlueprintName = "BeatTagUITests"
+               ReferencedContainer = "container:BeatTag.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -69,9 +69,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "331A1C282F530AC800EE99B6"
-            BuildableName = "AutoBPM.app"
-            BlueprintName = "AutoBPM"
-            ReferencedContainer = "container:AutoBPM.xcodeproj">
+            BuildableName = "BeatTag.app"
+            BlueprintName = "BeatTag"
+            ReferencedContainer = "container:BeatTag.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -86,9 +86,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "331A1C282F530AC800EE99B6"
-            BuildableName = "AutoBPM.app"
-            BlueprintName = "AutoBPM"
-            ReferencedContainer = "container:AutoBPM.xcodeproj">
+            BuildableName = "BeatTag.app"
+            BlueprintName = "BeatTag"
+            ReferencedContainer = "container:BeatTag.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

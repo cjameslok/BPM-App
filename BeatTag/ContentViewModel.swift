@@ -1,6 +1,6 @@
 //
 //  ContentViewModel.swift
-//  AutoBPM
+//  BeatTag
 //
 //  Created by James Lok on 2026-05-28.
 //
