@@ -207,7 +207,7 @@
 <body>
 
 <div class="wrap">
-  <h1>Report an issue</h1>
+  <h1>BeatTag Support - Report an issue</h1>
   <p class="lede">
     Something off with BeatTag? Tell us what happened and we'll get back to you by email.
   </p>
@@ -275,14 +275,14 @@
       });
 
       if (res.ok) {
-        status.textContent = "Thanks — your report's been sent. We'll reply by email.";
+        status.textContent = "Thank you! Your report has been sent successfully.";
         status.className = 'status show success';
         form.reset();
       } else {
         throw new Error('Submission failed');
       }
     } catch (err) {
-      status.textContent = "Something went wrong sending this. Try again, or email us directly.";
+      status.textContent = "Something went wrong sending this. Try again or email us directly.";
       status.className = 'status show error';
     } finally {
       btn.disabled = false;
