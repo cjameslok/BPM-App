@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BeatTag — Support</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1b2028;
+    --bg-card: #22283354;
+    --panel: #242b35;
+    --border: #333c49;
+    --text: #edeef0;
+    --text-dim: #9aa4b2;
+    --accent: #ffae42;
+    --accent-dim: #ffae4222;
+    --error: #ff6b6b;
+    --success: #6bdc9a;
+    --radius: 10px;
+  }
+
+  * { box-sizing: border-box; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 64px 20px 40px;
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 520px;
+  }
+
+  h1 {
+    margin-top: 0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .lede {
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0 0 36px;
+    max-width: 46ch;
+  }
+
+  .lede a { color: var(--text); }
+
+  form {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+
+  .field {
+    margin-bottom: 20px;
+  }
+
+  .field:last-of-type {
+    margin-bottom: 0;
+  }
+
+  label {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+    padding: 11px 12px;
+    transition: border-color 0.15s ease;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: #5c6572;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.5;
+  }
+
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239aa4b2' stroke-width='1.5' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+  }
+
+  .hint {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 6px;
+  }
+
+  button {
+    width: 100%;
+    background: var(--accent);
+    color: #1b1500;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 14.5px;
+    padding: 13px;
+    margin-top: 26px;
+    cursor: pointer;
+    transition: filter 0.15s ease, transform 0.1s ease;
+  }
+
+  button:hover { filter: brightness(1.08); }
+  button:active { transform: scale(0.99); }
+
+  button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .status {
+    display: none;
+    font-size: 13.5px;
+    margin-top: 16px;
+    padding: 11px 12px;
+    border-radius: 6px;
+    line-height: 1.5;
+  }
+
+  .status.show { display: block; }
+  .status.success { background: #6bdc9a1a; border: 1px solid #6bdc9a44; color: var(--success); }
+  .status.error   { background: #ff6b6b1a; border: 1px solid #ff6b6b44; color: var(--error); }
+
+  footer {
+    max-width: 520px;
+    width: 100%;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+    color: var(--text-dim);
+  }
+
+  footer a {
+    color: var(--text-dim);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  footer a:hover { color: var(--text); border-color: var(--text-dim); }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 25px; }
+    form { padding: 20px; }
+    body { padding-top: 44px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <h1>Report an issue</h1>
+  <p class="lede">
+    Something off with BeatTag? Tell us what happened and we'll get back to you by email.
+  </p>
+
+  <form id="support-form" action="https://formspree.io/f/mrenewdz" method="POST">
+    <div class="field">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your name" required>
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required>
+      <div class="hint">So we can follow up with you directly.</div>
+    </div>
+
+    <div class="field">
+      <label for="category">Issue type</label>
+      <select id="category" name="category">
+        <option value="Bug">Bug — something isn't working</option>
+        <option value="Apple Music sync">Apple Music sync problem</option>
+        <option value="Tap tempo accuracy">Tap tempo accuracy</option>
+        <option value="Feature request">Feature request</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="version">App version <span style="text-transform:none;color:var(--text-dim)">(optional)</span></label>
+      <input type="text" id="version" name="version" placeholder="e.g. 1.1 — found in Settings">
+    </div>
+
+    <div class="field">
+      <label for="message">What happened?</label>
+      <textarea id="message" name="message" placeholder="Steps to reproduce, what you expected, and what actually happened." required></textarea>
+    </div>
+
+    <button type="submit" id="submit-btn">Send report</button>
+
+    <div class="status" id="status"></div>
+  </form>
+
+  <footer>
+    <span>BeatTag</span>
+    <a href="https://github.com/cjameslok/BPM-App" target="_blank" rel="noopener">View on GitHub ↗</a>
+  </footer>
+</div>
+
+<script>
+  const form = document.getElementById('support-form');
+  const status = document.getElementById('status');
+  const btn = document.getElementById('submit-btn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    status.className = 'status';
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        status.textContent = "Thanks — your report's been sent. We'll reply by email.";
+        status.className = 'status show success';
+        form.reset();
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (err) {
+      status.textContent = "Something went wrong sending this. Try again, or email us directly.";
+      status.className = 'status show error';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Send report';
+    }
+  });
+</script>
+
+</body>
+</html>
